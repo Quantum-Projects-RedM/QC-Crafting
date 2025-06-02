@@ -11,7 +11,6 @@ version '1.0.0'
 shared_scripts {
     '@rsg-core/shared/locale.lua',
     '@ox_lib/init.lua',
-    'locales/en.json',
     'config.lua',
 }
 
