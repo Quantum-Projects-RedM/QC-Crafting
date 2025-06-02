@@ -2,7 +2,7 @@ Config = {}
 
 Config.Debug = false
 
-Config.Item = 'CraftingTable'
+Config.Item = 'craftingtable'
 
 Config.CraftingProps = {
 	'mp005_s_posse_ammotable03x',
