@@ -50,7 +50,7 @@ AddEventHandler('qc-craft:client:setupcrafting', function()
         -- Waits 20 seconds before the scenario stops
         Wait(30000)
         ClearPedTasks(ped)  -- Stops the script after 20 seconds
-
+        TriggerServerEvent('qc-craft:server:finishedtable')  -- Server event to remove the item from the inventory
         -- Notification on successful placement of the smelter
         TriggerEvent("bln_notify:send", {
             title = "~#ffcc00~"..locale('qc_notify_setup_complete').."~e~",
@@ -58,6 +58,7 @@ AddEventHandler('qc-craft:client:setupcrafting', function()
             placement = "top-right"
         })
         craft = true
+
     end
 end, false)
 
@@ -179,6 +180,7 @@ RegisterNetEvent('qc-craft:client:docraft', function(name, item, crafttimer, rec
         if not cancelled then
             -- If death ends successfully
             TriggerServerEvent('qc-craft:server:finishsCraft', required, receive)
+            ClearPedTasksImmediately(player)
         else
             -- If death is interrupted
             TriggerEvent("bln_notify:send", {
@@ -187,11 +189,6 @@ RegisterNetEvent('qc-craft:client:docraft', function(name, item, crafttimer, rec
                 placement = "top-right"
             })
         end
-    end)
-
-    -- We stop animation after progress bar is over
-    Citizen.SetTimeout(crafttimer, function()
-        ClearPedTasksImmediately(player)
     end)
 end)
 

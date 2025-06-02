@@ -30,6 +30,17 @@ RSGCore.Functions.CreateCallback('qc-craft:server:itemcheck', function(source, c
     end
 end)
 
+RegisterServerEvent('qc-craft:server:finishedtable')
+AddEventHandler('qc-craft:server:finishedtable', function()
+    local src = source
+    local Player = RSGCore.Functions.GetPlayer(src)
+    if Player.Functions.GetItemByName(Config.Item) then
+        Player.Functions.RemoveItem(Config.Item, 1)
+        TriggerClientEvent('inventory:client:ItemBox', src, RSGCore.Shared.Items[Config.Item], "remove")
+    end
+end)
+
+
 -- Completing the Crafting
 RegisterServerEvent('qc-craft:server:finishsCraft')
 AddEventHandler('qc-craft:server:finishsCraft', function(required, receive)
