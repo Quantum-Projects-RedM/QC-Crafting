@@ -1,0 +1,8 @@
+{
+    "qc_craft_title" : "Crafting Menu",
+    "qc_target_label" : "Crafting Table",
+    "qc_craft_close_menu" : "Close",
+    "qc_not_enough_resources" : "Not enough resources to craft this item.",
+    "qc_progress_label" : "Crafting...",
+    "qc_progress_finished" : "Crafting Finished"
+}

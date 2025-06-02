@@ -1,2 +1,1 @@
-	-- book
-	['indianbook'] = {['name'] = 'indianbook', ['label'] = 'Mudrost Predaka', ['weight'] = 300, ['type'] = 'item', ['image'] = 'indianbook.png', ['unique'] = false, ['useable'] = true, ['shouldClose'] = true, ['combinable'] = nil, ['level'] = 0, ['description'] = 'The book of ancient teachings and forgotten skills, carried away from the knees. It contains the secrets of nature, crafts and spiritual leadership that our ancestors used to live in accordance with the world.'},
+craftingtable = {name = 'craftingtable', label = 'Crafting Table', weight = 500, type = 'item', image = 'craftingtable.png', unique = true, useable = true, shouldClose = true, description = 'A table for crafting'},

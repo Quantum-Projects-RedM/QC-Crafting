@@ -1,27 +1,27 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
-
--- korišćenje ore za topionicu
-RSGCore.Functions.CreateUseableItem("indianbook", function(source, item)
+lib.locale()
+-- Create Crafting Table
+RSGCore.Functions.CreateUseableItem(Config.Item, function(source, item)
     local src = source
-    TriggerClientEvent('qc-craft:client:setupgoldsmelt', src, item.name)
+    TriggerClientEvent('qc-craft:client:setupcrafting', src, item.name)
 end)
 
--- provera da li igrač ima potrebne stvari
-RSGCore.Functions.CreateCallback('qc-craft:server:checkinggolditems', function(source, cb, smeltitems)
+-- Does the player have the necessary things
+RSGCore.Functions.CreateCallback('qc-craft:server:itemcheck', function(source, cb, required)
     local src = source
     local hasItems = false
     local icheck = 0
     local Player = RSGCore.Functions.GetPlayer(src)
-    for k, v in pairs(smeltitems) do
+    for k, v in pairs(required) do
         if Player.Functions.GetItemByName(v.item) and Player.Functions.GetItemByName(v.item).amount >= v.amount then
             icheck = icheck + 1
-            if icheck == #smeltitems then
+            if icheck == #required then
                 cb(true)
             end
         else
             TriggerClientEvent("bln_notify:send", src, {
-                title = "~#dc3545~Greška~e~",
-                description = Lang:t('error.you_donthave_the_required_items'),
+                title = "~#dc3545~Error~e~",
+                description = locale('qc_not_enough_resources'),
                 placement = "top-right"
             })
             cb(false)
@@ -30,13 +30,13 @@ RSGCore.Functions.CreateCallback('qc-craft:server:checkinggolditems', function(s
     end
 end)
 
--- završavanje smeltovanja
-RegisterServerEvent('qc-craft:server:finishsmelting')
-AddEventHandler('qc-craft:server:finishsmelting', function(smeltitems, receive)
+-- Completing the Crafting
+RegisterServerEvent('qc-craft:server:finishsCraft')
+AddEventHandler('qc-craft:server:finishsCraft', function(required, receive)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(src)
     -- uklanjanje smeltitem-a
-    for k, v in pairs(smeltitems) do
+    for k, v in pairs(required) do
         if Config.Debug == true then
             print(v.item)
             print(v.amount)
@@ -44,12 +44,42 @@ AddEventHandler('qc-craft:server:finishsmelting', function(smeltitems, receive)
         Player.Functions.RemoveItem(v.item, v.amount)
         TriggerClientEvent('inventory:client:ItemBox', src, RSGCore.Shared.Items[v.item], "remove")
     end
-    -- dodavanje novih item-a
+    -- Adding new Item
     Player.Functions.AddItem(receive, 1)
     TriggerClientEvent('inventory:client:ItemBox', src, RSGCore.Shared.Items[receive], "add")
     TriggerClientEvent("bln_notify:send", src, {
-        title = "~#28a745~Uspešno~e~",
-        description = Lang:t('success.smelting_finished'),
+        title = "~#28a745~Success~e~",
+        description = locale('qc_progress_finished'),
         placement = "top-right"
     })
 end)
+
+------------------------------------------------------------------------------------------------------
+
+
+local function CheckVersion()
+    PerformHttpRequest('https://raw.githubusercontent.com/Quantum-Projects-RedM/QC-VersionCheckers/master/QC-Crafting.txt', function(err, newestVersion, headers)
+        local currentVersion = GetResourceMetadata(GetCurrentResourceName(), 'version')
+        local resourceName = GetCurrentResourceName()
+        local discordLink = GetResourceMetadata(resourceName, 'quantum_discord')
+
+        if not newestVersion then
+            print("\n^1[Quantum Projects]^7 Unable to perform version check.\n")
+            return
+        end
+
+        local isLatestVersion = newestVersion:gsub("%s+", "") == currentVersion:gsub("%s+", "")
+        if isLatestVersion then
+            print(("^3[Quantum Projects]^7: You are running the latest version of ^2%s^7 (^2%s^7)."):format(resourceName, currentVersion))
+        else
+            print("\n^6========================================^7")
+            print("^3[Quantum Projects]^7 Version Checker")
+            print("")
+            print(("^3Version Check^7:\n ^2Current^7: %s\n ^2Latest^7: %s\n"):format(currentVersion, newestVersion))
+            print(("^1You are running an outdated version of %s.\n^6Visit Discord for News: ^4%s^7\n"):format(resourceName, discordLink))
+            print("^6========================================^7\n")
+        end
+    end)
+end
+
+CheckVersion()

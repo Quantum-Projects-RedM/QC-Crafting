@@ -1,0 +1,15 @@
+{
+    "qc_craft_title" : "Crafting Menu",
+    "qc_target_label" : "Crafting Table",
+    "qc_craft_close_menu" : "Close",
+    "qc_not_enough_resources" : "Not enough resources to craft this item.",
+    "qc_progress_placing" : "Placing Crafting Table...",
+    "qc_progress_label" : "Crafting...",
+    "qc_progress_finished" : "Crafting Finished",
+
+    "qc_notify_setup_title" : "Building..",
+    "qc_notify_setup_desc" : "You are now building a crafting table.",
+
+    "qc_notify_setup_complete" : "Crafting Table",
+    "qc_notify_setup_desc_comp" : "The work surface is successfully built.",
+}
