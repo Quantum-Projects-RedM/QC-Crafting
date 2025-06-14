@@ -36,16 +36,13 @@ Config = {
   }
 }
 ```
-
-## Support
-[Quantum Projects Discord](https://discord.gg/kJ8ZrGM8TS)
-
+---
 ## Dependencies
 - rsg-core
 - rsg-menu
 - bln_notify
 - ox_target
-
+---
 # Installation
 
 1. Ensure all dependencies are installed and started.
@@ -53,7 +50,7 @@ Config = {
 3. Add required items to your `rsg-core/shared/items.lua`.
 4. Add item images to your `rsg-inventory/html/images` folder.
 5. Adjust `config.lua` as needed for your server.
-
+---
 # Starting the Resource
 
 Add the following to your `server.cfg`:
