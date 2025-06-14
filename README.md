@@ -1,6 +1,11 @@
 # QC-Craft
 
 A complete crafting system designed for use with [RSG Framework](https://github.com/Rexshack-RedM). This script allows players to craft items using required materials and integrates with ox_target for interactive crafting tables.
+---
+### Need Support? join our discord!
+
+- Discord: https://discord.gg/kJ8ZrGM8TS
+---
 
 # Information
 
@@ -9,13 +14,14 @@ A complete crafting system designed for use with [RSG Framework](https://github.
 - Crafting options and required materials are fully configurable in `config.lua`.
 - Item images should be added to your inventory images folder for proper display.
 - Crafting timers are set in seconds in the configuration.
+---
 
 # Developer Information
 
 - To add more crafting recipes, edit the `Config.CraftingOptions` table in `config.lua`.
 - Each recipe can have its own required items, crafting time, and output item.
 - Make sure to add new items to `rsg-core/shared/items.lua` and provide corresponding images.
-
+---
 ```lua
 Config = {
   CraftingOptions = {
